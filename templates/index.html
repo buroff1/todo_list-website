@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+    <style>
+        body {
+            background-color: #121212; /* Dark background for dark mode */
+            color: #fff; /* White text for dark mode */
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .header {
+            font-size: 3em; /* Bigger header text */
+            color: #fff; /* White text for dark mode */
+        }
+
+        .ui.form .field label {
+            font-size: 1.5em; /* Larger label text */
+            flex: 0 0 120px; /* Fixed width for label */
+            margin-top: 5px; /* Add margin to the left of the button */
+            color: #fff; /* White text for dark mode */
+
+        }
+
+        .ui.form .field input {
+            font-size: 1.2em; /* Larger input text */
+            flex: 1; /* Stretch input to take available space */
+            background-color: #333; /* Dark background for input */
+            color: #fff; /* White text for input */
+            border: 1px solid #444; /* Border for input */
+        }
+
+        .ui.button {
+            font-size: 1.2em; /* Larger button text */
+        }
+
+        .ui.segment {
+            padding: 20px; /* More padding for a cleaner look */
+            background-color: #333; /* Darker background for segments in dark mode */
+            border: 1px solid #444; /* Border color for segments in dark mode */
+        }
+
+        .ui.segment p.header {
+            font-size: 1.5em; /* Larger to-do item text */
+            color: #fff; /* White text for dark mode */
+
+        }
+
+        .ui.label {
+            margin-top: 5px;
+            font-size: 1.3em; /* Larger label text */
+        }
+
+        .ui.form .field {
+            display: flex;
+            align-items: center;
+        }
+
+        .ui.form .field .ui.button {
+            margin-left: 10px; /* Add margin to the left of the button */
+            width: 100px; /* Ensure all buttons have the same width */
+            margin-bottom: 5px; /* Add margin to the left of the button */
+
+
+        }
+
+        .ui.blue.button {
+            background-color: #1a73e8; /* Adjust blue button color in dark mode */
+            color: #fff; /* White text for blue button */
+        }
+
+        .ui.red.button {
+            background-color: #d32f2f; /* Adjust red button color in dark mode */
+            color: #fff; /* White text for red button */
+        }
+
+        .ui.segment .ui.button {
+            margin-left: 10px; /* Margin between buttons */
+        }
+
+        .ui.center.aligned.header {
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="ui container">
+    <h1 class="ui center aligned header">Todo App</h1>
+    <form class="ui form" method="POST" action="/">
+        <div class="field">
+            <label for="title">Todo Title</label>
+            <input type="text" id="title" name="title" placeholder="Enter Todo">
+            <button style="margin-top:5px" class="ui blue button" type="submit">Add</button>
+        </div>
+    </form>
+
+    {% for todo in todo_list %}
+    <div class="ui segment">
+        <p class="ui big header">{{ todo.title }}</p>
+        {% if not todo.complete %}
+        <span class="ui gray label">Not Completed</span>
+        {% else %}
+        <span class="ui green label">Completed</span>
+        {% endif %}
+        <a class="ui blue button right floated" href="{{ url_for('update', todo_id=todo.id) }}">Mark as
+            Completed</a>
+        <a class='ui red button right floated' href="{{ url_for('delete', todo_id=todo.id) }}">Delete</a>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>
