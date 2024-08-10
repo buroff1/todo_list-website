@@ -104,14 +104,16 @@
     {% for todo in todo_list %}
     <div class="ui segment">
         <p class="ui big header">{{ todo.title }}</p>
+        <a class="ui red button right floated" href="{{ url_for('delete', todo_id=todo.id) }}">Delete</a>
         {% if not todo.complete %}
         <span class="ui gray label">Not Completed</span>
+        <a class="ui blue button right floated" href="{{ url_for('update', todo_id=todo.id) }}">Mark as Completed</a>
         {% else %}
         <span class="ui green label">Completed</span>
+        <a class="ui blue button right floated" href="{{ url_for('update', todo_id=todo.id) }}">Mark as Uncompleted</a>
         {% endif %}
-        <a class="ui blue button right floated" href="{{ url_for('update', todo_id=todo.id) }}">Mark as
-            Completed</a>
-        <a class='ui red button right floated' href="{{ url_for('delete', todo_id=todo.id) }}">Delete</a>
+
+
     </div>
     {% endfor %}
 </div>
